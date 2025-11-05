@@ -2,7 +2,7 @@
 
 // Rotating image setup (only runs on index.html)
 const rotation = [
-  'pics/IMG_9913.JPG',
+  'pics/IMG_9913.jpg',
   'pics/IMG_9646.JPG',
   'pics/IMG_9423.jpg',
   'pics/Resized_20250927_173814.jpeg'
