@@ -2,7 +2,7 @@
 
 // Rotating image setup (only runs on index.html)
 const rotation = [
-  'pics/IMG_9913.jpg',
+  'pics/IMG_9913.JPG',
   'pics/IMG_9646.JPG',
   'pics/IMG_9423.jpg',
   'pics/Resized_20250927_173814.jpeg'
@@ -18,13 +18,15 @@ if (picture) {
   });
 }
 
-// === Smooth scrolling for internal links ===
+// Smooth scrolling for internal links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const targetId = this.getAttribute('href');
-    if (targetId !== '#' && document.querySelector(targetId)) {
-      document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector(targetId);
+    
+    if (targetId !== '#' && target) {
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
@@ -32,21 +34,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Image modal functionality
 const modal = document.getElementById("imgModal");
 const modalImg = document.getElementById("modalImg");
-const closeBtn = document.getElementsByClassName("close")[0];
+const closeBtn = document.querySelector(".close");
 
-document.querySelectorAll(".photographer img").forEach(img => {
-  img.addEventListener("click", () => {
-    modal.style.display = "block";
-    modalImg.src = img.src;
+if (modal && modalImg && closeBtn) {
+  // Open modal when photographer images are clicked
+  document.querySelectorAll(".photographer img").forEach(img => {
+    img.addEventListener("click", () => {
+      modal.style.display = "block";
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+    });
   });
-});
 
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-};
-
-modal.onclick = function(e) {
-  if (e.target === modal) {
+  // Close modal when X is clicked
+  closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
-  }
-};
+  });
+
+  // Close modal when clicking outside the image
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+}
